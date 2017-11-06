@@ -1,0 +1,2 @@
+﻿1 / Màn Sáo Đứng / Trắng / 100000 / 3 / false
+2 / Màn Sáo Ngang / Trắng / 50000 / 5 / true

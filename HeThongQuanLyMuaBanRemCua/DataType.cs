@@ -13,7 +13,7 @@ namespace HeThongQuanLyMuaBanRemCua
         private List<string> boughtList;
 
         public User(string username,string password, string phone, string address, string id, bool isManager, bool isVIp) {
-            if (isManager == isVIp)
+            if (isManager == isVIp && isManager == true)
             {
                 return;
             }
@@ -36,9 +36,11 @@ namespace HeThongQuanLyMuaBanRemCua
 
         public Dictionary<string, Object> getInfo() {
             Dictionary<string, Object> processInfo = new Dictionary<string, object>();
-            processInfo["phone"] = phone;
-            processInfo["address"] = address;
             processInfo["id"] = id;
+            processInfo["username"] = username;
+            processInfo["password"] = password;
+            processInfo["phone"] = phone;
+            processInfo["address"] = address;          
             processInfo["isManager"] = isManager;
             processInfo["isVIP"] = isVIP;
             processInfo["list"] = boughtList;
@@ -46,6 +48,9 @@ namespace HeThongQuanLyMuaBanRemCua
         }
 
         public void addGoods(string id) {
+            if (boughtList == null) {
+                boughtList = new List<string>();
+            }
             boughtList.Add(id);
         }
 
@@ -57,10 +62,9 @@ namespace HeThongQuanLyMuaBanRemCua
         private int amount; // so luong hang ton kho
         private bool isSale;
 
-        public Curtain(string name, string type, string color, string id, float price, int amount, bool isSale )
+        public Curtain(string name, string color, string id, float price, int amount, bool isSale )
         {
             this.name = name;
-            this.type = type;
             this.color = color;
             this.id = id;
             this.price = price;
@@ -71,10 +75,9 @@ namespace HeThongQuanLyMuaBanRemCua
         public Dictionary<string, Object> getInfo()
         {
             Dictionary<string, Object> processInfo = new Dictionary<string, object>();
-            processInfo["name"] = name;
-            processInfo["type"] = type;
-            processInfo["color"] = color;
             processInfo["id"] = id;
+            processInfo["name"] = name;
+            processInfo["color"] = color;
             processInfo["price"] = price;
             processInfo["amount"] = amount;
             processInfo["isSale"] = isSale;
@@ -83,7 +86,7 @@ namespace HeThongQuanLyMuaBanRemCua
 
         public bool isMe(string input)
         {
-            if (name.Contains(input)||type.Contains(input)||color.Contains(input)||id.Contains(input)||price.ToString().Contains(input)||amount.ToString().Contains(input))
+            if (name.Contains(input)||color.Contains(input)||id.Contains(input)||price.ToString().Contains(input)||amount.ToString().Contains(input))
             {
                 return true;
             }
@@ -94,7 +97,7 @@ namespace HeThongQuanLyMuaBanRemCua
     class Receipt {
         private string userid, address, phone, curtainid,id;
         private DateTime createdDay = DateTime.Now;
-        private DateTime deliverDay = new DateTime();
+        private DateTime deliverDay = DateTime.Now;
         private float price;
         private int ammout;
         private bool isDeliver;
