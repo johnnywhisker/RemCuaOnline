@@ -20,7 +20,7 @@ namespace HeThongQuanLyMuaBanRemCua
                 User tempUser = new User(processText[1],Security.Decrypt(processText[2],"HLG123"), processText[3], processText[4], processText[0], bool.Parse(processText[5]), bool.Parse(processText[6]));
                 string[] listProcess = processText[7].Split('|');
                 foreach (string item in listProcess) {
-                    tempUser.addGoods(item);  
+                    tempUser.addGoods(item);
                 }
                 users.Add(tempUser);
                 //Dictionary<string, Object> test = new Dictionary<string, object>();
@@ -39,7 +39,7 @@ namespace HeThongQuanLyMuaBanRemCua
                 //        Console.Write("{0}\t", test[key]);
                 //    }
                 //}
-                //Console.WriteLine();            
+                //Console.WriteLine()
             }
 
             string[] curtaintexts = System.IO.File.ReadAllLines(@"Curtains.txt");
@@ -57,7 +57,7 @@ namespace HeThongQuanLyMuaBanRemCua
                 string[] processText = text.Split('/');
                 Receipt tempReceipt = new Receipt(processText[0], processText[1], processText[2], processText[3], int.Parse(processText[4]), float.Parse(processText[5]), processText[6]);
                 receipts.Add(tempReceipt);
-            }          
+            }
         }
         public void writeDatabase()
         {

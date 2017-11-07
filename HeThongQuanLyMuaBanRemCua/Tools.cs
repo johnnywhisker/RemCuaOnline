@@ -10,18 +10,16 @@ namespace HeThongQuanLyMuaBanRemCua
 {
     class Security
     {
-       
-            // This constant is used to determine the keysize of the encryption algorithm in bits.
+             // This constant is used to determine the keysize of the encryption algorithm in bits.
             // We divide this by 8 within the code below to get the equivalent number of bytes.
             private const int Keysize = 256;
-
             // This constant determines the number of iterations for the password bytes generation function.
             private const int DerivationIterations = 1000;
 
             public static string Encrypt(string plainText, string passPhrase)
             {
                 // Salt and IV is randomly generated each time, but is preprended to encrypted cipher text
-                // so that the same Salt and IV values can be used when decrypting.  
+                // so that the same Salt and IV values can be used when decrypting.
                 var saltStringBytes = Generate256BitsOfRandomEntropy();
                 var ivStringBytes = Generate256BitsOfRandomEntropy();
                 var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
@@ -104,5 +102,4 @@ namespace HeThongQuanLyMuaBanRemCua
                 return randomBytes;
             }
         }
-        
     }

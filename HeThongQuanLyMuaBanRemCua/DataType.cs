@@ -40,7 +40,7 @@ namespace HeThongQuanLyMuaBanRemCua
             processInfo["username"] = username;
             processInfo["password"] = password;
             processInfo["phone"] = phone;
-            processInfo["address"] = address;          
+            processInfo["address"] = address;
             processInfo["isManager"] = isManager;
             processInfo["isVIP"] = isVIP;
             processInfo["list"] = boughtList;

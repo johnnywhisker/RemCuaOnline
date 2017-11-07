@@ -17,7 +17,6 @@ namespace HeThongQuanLyMuaBanRemCua
             temp.addGoods("123");
             database.receipts.Add(tempR);
             database.users.Add(temp);
-            
             database.writeDatabase();
             Console.ReadLine();
         }
