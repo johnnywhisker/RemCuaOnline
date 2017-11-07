@@ -8,9 +8,9 @@ namespace HeThongQuanLyMuaBanRemCua
 {
     class Database
     {
-        public List<User> users = new List<User>();
-        public List<Curtain> curtains = new List<Curtain>();
-        public List<Receipt> receipts = new List<Receipt>();
+        List<User> users = new List<User>();
+        List<Curtain> curtains = new List<Curtain>();
+        List<Receipt> receipts = new List<Receipt>();
 
         public void updateDatabase() {
             string[] usertexts = System.IO.File.ReadAllLines(@"Users.txt");
