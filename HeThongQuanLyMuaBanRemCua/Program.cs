@@ -8,17 +8,42 @@ namespace HeThongQuanLyMuaBanRemCua
 {
     class Program
     {
+       
         static void Main(string[] args)
         {
+            Dictionary<string, object> seasionInfo = new Dictionary<string, object>();
             Database database = new Database();
             database.updateDatabase();
-           // User temp = new User("Tester", "123", "123", "ABC", "13", false, false);
-           // Receipt tempR = new Receipt("4", "Nha may", "113", "-1", 0, -100000, "4");
-           // temp.addGoods("123");
-           // database.receipts.Add(tempR);
-           // database.users.Add(temp);
-            database.writeDatabase();
-            Console.ReadLine();
+            seasionInfo["name"] = "";
+            seasionInfo["isManager"] = false;
+            Console.OutputEncoding = Encoding.UTF8;
+            BeginMenu:
+            switch (Interface.MainMenu(seasionInfo["name"] as string,Convert.ToBoolean( seasionInfo["isManager"])))
+            {
+                case 0:
+                    database.writeDatabase();
+                    return;
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    if (seasionInfo["name"] as string != "") {
+                        if (Interface.ShowLogout(seasionInfo) == 1)
+                        {
+                            goto BeginMenu;
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                    Interface.ShowLogin(database, seasionInfo);
+                   // Interface.SignUp(database);
+                    break;
+            }
+            goto BeginMenu;
+            
         }
     }
 }

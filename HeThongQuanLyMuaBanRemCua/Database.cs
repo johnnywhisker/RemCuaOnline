@@ -12,12 +12,40 @@ namespace HeThongQuanLyMuaBanRemCua
         List<Curtain> curtains = new List<Curtain>();
         List<Receipt> receipts = new List<Receipt>();
 
+        public int findUser(string userName) {
+            foreach (User user in users) {
+                Dictionary<string, object> tempDic = user.getInfo();
+                if (tempDic["username"] as string == userName) {
+                    return users.IndexOf(user);
+                }
+            }
+            return - 1;
+        }
+
+        public void addUser(User user) {
+            users.Add(user);
+        }
+
+        public bool validateLogin(string userName, string password, int index) {
+            try
+            {
+                User user = users[index];
+                return user.ValidateLogin(userName, password);
+            }
+            catch
+            {
+                return false;
+            }
+           
+        }
+
         public void updateDatabase() {
             string[] usertexts = System.IO.File.ReadAllLines(@"Users.txt");
             foreach (string text in usertexts)
             {
                 string[] processText = text.Split('-');
-                User tempUser = new User(processText[1],Security.Decrypt(processText[2],"HLG123"), processText[3], processText[4], processText[0], bool.Parse(processText[5]), bool.Parse(processText[6]));
+                
+                User tempUser = new User(processText[1].Trim(),Security.Decrypt(processText[2],"HLG123"), processText[3], processText[4], processText[0], bool.Parse(processText[5]), bool.Parse(processText[6]));
                 string[] listProcess = processText[7].Split('|');
                 foreach (string item in listProcess) {
                     tempUser.addGoods(item);
@@ -45,7 +73,7 @@ namespace HeThongQuanLyMuaBanRemCua
             string[] curtaintexts = System.IO.File.ReadAllLines(@"Curtains.txt");
             foreach (string text in curtaintexts)
             {
-                string[] processText = text.Split('/');
+                string[] processText = text.Split('-');
                 Curtain tempCurtain = new Curtain(processText[1], processText[2], processText[0], float.Parse(processText[3]), int.Parse(processText[4]), bool.Parse(processText[5]));
                 curtains.Add(tempCurtain);
             }
@@ -54,7 +82,7 @@ namespace HeThongQuanLyMuaBanRemCua
             string[] receipttexts = System.IO.File.ReadAllLines(@"Receipts.txt");
             foreach (string text in receipttexts)
             {
-                string[] processText = text.Split('/');
+                string[] processText = text.Split('-');
                 Receipt tempReceipt = new Receipt(processText[0], processText[1], processText[2], processText[3], int.Parse(processText[4]), float.Parse(processText[5]), processText[6]);
                 receipts.Add(tempReceipt);
             }
@@ -69,7 +97,7 @@ namespace HeThongQuanLyMuaBanRemCua
                 foreach (string item in listBought) {
                     listLine += item + "|";
                 }
-                string line = String.Format("{0} - {1} - {2} - {3} - {4} - {5} - {6} - {7}",tempUser["id"],tempUser["username"],Security.Encrypt(tempUser["password"] as string,"HLG123"),tempUser["phone"],tempUser["address"],tempUser["isManager"],tempUser["isVIP"],listLine);
+                string line = String.Format("{0} - {1} - {2} - {3} - {4} - {5} - {6} - {7}", tempUser["id"], (tempUser["username"] as string).Trim().TrimStart(),Security.Encrypt(tempUser["password"] as string,"HLG123"),tempUser["phone"],tempUser["address"],tempUser["isManager"],tempUser["isVIP"],listLine);
                 lineUsers.Add(line);
             }
             System.IO.File.WriteAllLines(@"Users.txt", lineUsers.ToArray());
